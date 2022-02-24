@@ -40,6 +40,14 @@ class App extends React.Component {
   cerrarModalInsertar = () => {
     this.setState({modalInsertar: false});
   }
+  
+  mostrarModalEditar = () => {
+    this.setState({modalEditar: true});
+  }
+
+  cerrarModalEditar = () => {
+    this.setState({modalEditar: false});
+  }
 
   insertar = () => {
     var valorNuevo = {...this.state.form};
@@ -49,6 +57,7 @@ class App extends React.Component {
     this.setState({
       data: lista,
       modalInsertar: false,
+      modalEditar: false,
     });
   }
 
@@ -78,7 +87,8 @@ class App extends React.Component {
                   <td>{elemento.personaje}</td>
                   <td>{elemento.anime}</td>
                   <td>
-                    <Button color='primary'>Editar</Button> {"  "}
+                    <Button color='primary' onClick={() => this.mostrarModalEditar()}>
+                      Editar</Button> {"  "}
                     <Button color='danger'>Eliminar</Button>
                   </td>
                 </tr>
@@ -140,6 +150,57 @@ class App extends React.Component {
             <Button color='danger' onClick={() => this.cerrarModalInsertar()}>
               Cancelar
             </Button>
+          </ModalFooter>
+        </Modal>
+
+        <Modal isOpen={this.state.modalEditar}>
+            <ModalHeader>
+              <div>
+                <h3>Editar registro</h3>
+              </div>
+            </ModalHeader>
+
+            <ModalBody>
+              <FormGroup>
+                <label>
+                  id:
+                </label>
+
+                <input
+                  className='form-control'
+                  readOnly
+                  type='text'
+                />
+              </FormGroup>
+              <FormGroup>
+                <label>
+                  Personaje:
+                </label>
+                <input
+                  className='form-control'
+                  name='personaje'
+                  type="text"
+                  onChange={this.handleChange}
+                />
+              </FormGroup>
+
+              <FormGroup>
+                <label>
+                  Anime:
+                </label>
+                <input
+                  className='form-control'
+                  name="anime"
+                  type="text"
+                  onChange={this.handleChange}
+                />
+              </FormGroup>
+            </ModalBody>
+
+          <ModalFooter>
+            <Button color='primary'>Editar</Button>
+            <Button color='danger' onClick={() => this.cerrarModalEditar()}>
+              Cancelar</Button>
           </ModalFooter>
         </Modal>
       </>
