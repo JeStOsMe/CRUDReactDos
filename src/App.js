@@ -41,6 +41,17 @@ class App extends React.Component {
     this.setState({modalInsertar: false});
   }
 
+  insertar = () => {
+    var valorNuevo = {...this.state.form};
+    valorNuevo.id = this.state.data.length + 1;
+    var lista = this.state.data;
+    lista.push(valorNuevo);
+    this.setState({
+      data: lista,
+      modalInsertar: false,
+    });
+  }
+
   render() {
     return (
       <>
@@ -54,6 +65,7 @@ class App extends React.Component {
           <Table>
             <thead>
               <tr>
+                <th>id</th>
                 <th>Personaje</th>
                 <th>Anime</th>
                 <th>Acciones</th>
@@ -114,7 +126,7 @@ class App extends React.Component {
               </label>
               <input
                 className='form-control'
-                namee="anime"
+                name="anime"
                 type="text"
                 onChange={this.handleChange}
               />
@@ -122,7 +134,7 @@ class App extends React.Component {
           </ModalBody>
 
           <ModalFooter>
-            <Button color='primary'>
+            <Button color='primary' onClick={() => this.insertar()}>
               Insertar
             </Button>
             <Button color='danger' onClick={() => this.cerrarModalInsertar()}>
